@@ -1,34 +1,21 @@
-from machine import Pin, ADC
+from machine import Pin
 import time
 
-# Onboard LED
-led_onboard = Pin(25, Pin.OUT)
-# External LED on GP15
-led_external = Pin(15, Pin.OUT)
-# ADC pin (e.g. GP26 / ADC0)
-adc = ADC(Pin(26))
+# Define all GPIO pins from 0 to 28 (excluding 23, 24, 25 if you only want usable ones)
+gpio_pins = [Pin(i, Pin.OUT) for i in range(29)]
 
-print("Starting Pico Full Test...")
+print("Starting GPIO Pin Test...")
 
 try:
     while True:
-        # Blink onboard LED
-        led_onboard.toggle()
-
-        # Blink external LED
-        led_external.value(1)
-        time.sleep(0.25)
-        led_external.value(0)
-        time.sleep(0.25)
-
-        # Read ADC value
-        adc_value = adc.read_u16()
-        print(f"ADC Read (GP26): {adc_value}")
-
-        # Small delay before repeating
-        time.sleep(0.5)
+        for pin in gpio_pins:
+            print(f"Toggling GPIO {pin.id()}")
+            pin.value(1)
+            time.sleep(0.2)
+            pin.value(0)
+            time.sleep(0.2)
 
 except KeyboardInterrupt:
     print("Test stopped by user.")
-    led_onboard.value(0)
-    led_external.value(0)
+    for pin in gpio_pins:
+        pin.value(0)
