@@ -12,3 +12,6 @@ We are starting to send the data via serial form the db9 port to usb for our lap
 # Future additions
 Using a more defined board that has less mess, allowing a more streamlined way to acquire data
 Create a more stationary testing station so that the water doesnt have to be in pvc pipes
+
+# Results!
+None yet :(
